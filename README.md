@@ -27,4 +27,4 @@ To get started with our project, please follow these steps:
 
 1. **Environment Setup:** Ensure you have all the necessary dependencies installed, including CuDNN, PyTorch, TensorFlow, OpenCV, Selenium, and yt-dlp.
 
-2. **Download the project from this link:** :
+2. **Download the project from this link:** : https://drive.google.com/drive/folders/15pD1IW_tBW4vZCCQPUw66qvBESfIAOfT?usp=sharing
