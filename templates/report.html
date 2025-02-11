@@ -1,0 +1,774 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Action Recognition</title>
+
+    <!-- icons cdn link  -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    />
+    <!-- icon scout cdn  -->
+    <link
+      rel="stylesheet"
+      href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
+    />
+    <!-- icon scout cdn ends here -->
+
+    <!-- icons cdn links end here  -->
+
+    <!-- font syles links  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- font styles links end here  -->
+    <!-- swiper js css link  -->
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"
+    />
+
+    <!-- swiper js css section ends  -->
+
+    <!-- css style sheet link  -->
+    
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/contactus.css' %}">
+    <link rel="stylesheet" href="{% static 'css/report.css' %}">
+    
+    <!-- style sheet link section ends here -->
+  </head>
+  <body>
+    <!-- ========== nav section starts here =============== -->
+    <nav>
+      <div class="container nav_container">
+          <a href="/" class="logo"><i class="fa fa-thin fa-person-running  fa-2x"></i><span class="logotext">Actions.ai</span></a>
+          <ul class="nav_menu navbar">
+              <li><a data-active="index" href="/"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
+              <li><a data-active="ourteam" href="/ourteam"><i class="fa fa-universal-access" aria-hidden="true"></i> OurTeam</a></li>
+              <li><a data-active="blogs" href="/blogs"><i class="fa fa-pencil" aria-hidden="true"></i> Blogs</a></li>
+              <li><a data-active="contact" href="/contactus"><i class="fa fa-share" aria-hidden="true"></i> ContactUs</a></li>
+                </ul>
+          
+          <button class="open_menu_btn"><i class="uil uil-bars"></i></button>
+          <button class="close_menu_btn"><i class="uil uil-multiply"></i></button>
+      </div>
+      <div class="scroll-indicator"></div>
+  </nav>
+
+    <!-- ========== nav section ends here =============== -->
+
+    <!-- ========== report page section starts here =============== -->
+
+    
+    <section class="report">
+
+      <div class="container report_container">
+        <!-- ========== url section starts here =============== -->
+        {% if video_path == None %}
+        <div class="urlsection">
+          <div class="inputurl">
+            <input
+              type="url"
+              class="pasteurl"
+              placeholder="Paste url to process"
+              required
+            />
+            <a href="#" class="processbtn btn-primary" type="submit">Process</a>
+          </div>
+        </div>
+        {% endif %}
+        <!-- ========== url section ends here =============== -->
+
+        <!-- ========== video section starts here =============== -->
+        <div class="show_loader" style="margin: auto; display: none;">
+          <h4 id="show_process">Fetching Video Please Wait..</h4>
+          <br>
+        <div class="loader"></div>
+        </div>
+        <div class="urlvideo">
+          <div class="videoWrapper">
+            {% if video_path == None %}
+            
+            <video
+              src="{% static 'vids/video1.mp4' %}"
+              autoplay
+              loop
+              muted
+              width="500"
+              height="500"
+              controls
+              type="video/mp4"
+              id="fetched_video"
+            ></video>
+            <div class="spinners">
+             <b>Start</b> <input id="start_spin" type="number" min="0" max="100" step="0.01" value="0" style="margin:0px 10px 0px 10px;">
+             <b>End</b><input id="end_spin" type="number" min="0" max="100" step="0.01" value="100" style="margin:0px 10px 0px 10px;">
+             <button id="start_recognize" type="submit">Start Recognizing</button>
+            </div>
+           
+            {% else %}
+            <video
+            src="{% static 'recognizedVideos/' %}{{video_path}}.mp4"
+            autoplay
+            loop
+            muted
+            width="500"
+            height="500"
+            controls
+            type="video/mp4"
+            id="fetched_video"
+          ></video>
+          
+            {% endif %}
+            <div class="video-overlay">
+              <div class="video-buttons">
+      
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ========== video section ends here =============== -->
+
+        <!-- ========== report section starts here =============== -->
+        <div class="reportform">
+          <table id="prob_table">
+            <caption>
+              Actions With Probability
+            </caption>
+              <tr>
+                <th >Action</th>
+                <th >Time</th>
+                <th >Probabilty</th>
+                <th >Download Action</th>
+              </tr>
+             
+            
+          </table>
+        </div>
+        <!-- ========== report section ends here =============== -->
+      </div>
+      
+    </section>
+
+    <!-- ========== history section starts here =============== -->
+    <!-- <section class="container history_container swiper mySwiper">
+        <h2>History</h2>
+        <div class="swiper-wrapper">
+          <article class="history swiper-slide">
+            <div class="history-avatar">
+              <img src="{% static 'images/course13.jpg' %}" alt="avatar1" />
+            </div>
+            <div class="history_info">
+              <h5>Aria Stark</h5>
+              <small>Researcher</small>
+            </div>
+            <div class="history_body">
+              <p>
+                "Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                Placeat ut dolore aspernatur eius ullam eveniet. "
+              </p>
+            </div>
+          </article>
+
+          <article class="history swiper-slide">
+            <div class="history-avatar">
+              <img src="{% static 'images/course1.jpg' %}" alt="avatar1" />
+            </div>
+            <div class="history_info">
+              <h5>AsiF Rehan</h5>
+              <small>Developer</small>
+            </div>
+            <div class="history_body">
+              <p>
+                "Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                Placeat ut dolore aspernatur eius ullam eveniet. "
+              </p>
+            </div>
+          </article>
+
+          <article class="history swiper-slide">
+            <div class="history-avatar">
+              <img src="{% static 'images/course10.jpg' %}" alt="avatar1" />
+            </div>
+            <div class="history_info">
+              <h5>Hasanat Ahmad</h5>
+              <small>Data Scientist</small>
+            </div>
+            <div class="history_body">
+              <p>
+                "Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                Placeat ut dolore aspernatur eius ullam eveniet. "
+              </p>
+            </div>
+          </article>
+
+          <article class="history swiper-slide">
+            <div class="history-avatar">
+              <img src="{% static 'images/course11.jpg' %}" alt="avatar1" />
+            </div>
+            <div class="history_info">
+              <h5>Sara Rehman</h5>
+              <small>Researcher</small>
+            </div>
+            <div class="history_body">
+              <p>
+                "Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                Placeat ut dolore aspernatur eius ullam eveniet. "
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem, sequi?
+              </p>
+            </div>
+          </article>
+          <article class="history swiper-slide">
+            <div class="history-avatar">
+              <img src="{% static 'images/course10.jpg' %}" alt="avatar1" />
+            </div>
+            <div class="history_info">
+              <h5>Hasanat Ahmad</h5>
+              <small>Data Scientist</small>
+            </div>
+            <div class="history_body">
+              <p>
+                "Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                Placeat ut dolore aspernatur eius ullam eveniet. "
+              </p>
+            </div>
+          </article>
+          <article class="history swiper-slide">
+            <div class="history-avatar">
+              <img src="{% static 'images/course10.jpg' %}" alt="avatar1" />
+            </div>
+            <div class="history_info">
+              <h5>Hasanat Ahmad</h5>
+              <small>Data Scientist</small>
+            </div>
+            <div class="history_body">
+              <p>
+                "Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                Placeat ut dolore aspernatur eius ullam eveniet. "
+              </p>
+            </div>
+          </article>
+          <article class="history swiper-slide">
+            <div class="history-avatar">
+              <img src="{% static 'images/course10.jpg' %}" alt="avatar1" />
+            </div>
+            <div class="history_info">
+              <h5>Hasanat Ahmad</h5>
+              <small>Data Scientist</small>
+            </div>
+            <div class="history_body">
+              <p>
+                "Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                Placeat ut dolore aspernatur eius ullam eveniet. "
+              </p>
+            </div>
+          </article>
+        </div>
+        <div class="swiper-pagination"></div>
+      </section> -->
+
+      <!-- ========== testimonial section ends here =============== -->
+    <!-- ========== footer section starts here =============== -->
+    <footer>
+      <div class="container footer_container">
+        <div class="footer_1">
+          <a href="index.html" class="footer_logo"
+            ><i class="fa fa-thin fa-person-running fa-2x"></i>Actions.ai</a
+          >
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita,
+            voluptate.
+          </p>
+        </div>
+        <div class="footer_2">
+          <h4>Links</h4>
+          <ul class="permalinks">
+            <li><a href="/">Home</a></li>
+            <li><a href="/ourteam">OurTeam</a></li>
+            <li><a href="/blogs">Blogs</a></li>
+            <li><a href="/contactus">ContactUs</a></li>
+        </ul>
+        </div>
+        <div class="footer_3">
+          <h4>Contact Us</h4>
+          <ul class="permalinks">
+            <div>
+              <p>+923478318273</p>
+              <p>rehanasif3454@gmail.com</p>
+              <ul class="footer_socials">
+                <a href="#" class="uil uil-facebook-f"></a>
+                <a href="#" class="uil uil-instagram-alt"></a>
+                <a href="#" class="uil uil-twitter"></a>
+                <a href="#" class="uil uil-linkedin-alt"></a>
+              </ul>
+            </div>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer_copyright">
+        <small>Copyright &copy; Actions.ai by Asif Rehan</small>
+      </div>
+    </footer>
+
+    <style>
+.spinners{
+  display: none;
+  align-items: center;
+  justify-content: center;
+  
+}
+.spinners button{
+  width: 20%;
+  height: 50px;
+  cursor: pointer;
+  background-color: rgba(40, 149, 113, 0.94);
+  color: azure;
+}
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 90%;
+    display: none;
+    color: #fff;
+    text-align: center;
+    padding-top: 30%;
+    font-size: 24px;
+    
+  }
+  .videoWrapper:hover .video-overlay {
+    display: flex;
+    
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .video-buttons {
+    position: absolute;
+    bottom: 0;
+    width: 30%;
+    padding: 10px;
+    text-align: center;
+    display: flex;
+  overflow-x: scroll;
+  -webkit-overflow-scrolling: touch; 
+
+  }
+  
+  .video-buttons button {
+    
+    background-color: rgba(40, 149, 113, 0.94);
+    margin: 0 10px;
+    color: #fff;
+    padding: 10px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+    </style>
+
+    <!-- ========== footer section ends here =============== -->
+
+    <!-- ========== javascript file link =============== -->
+
+    <script src="{% static 'js/Main.js' %}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <!-- Initialize Swiper -->
+    <script>
+      
+      window.CSRF_TOKEN = "{{ csrf_token }}";
+      var swiper = new Swiper(".mySwiper", {
+        slidesPerView: 1,
+        spaceBetween: 30,
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+
+        //when windown width is >=600px
+        breakpoints: {
+          600: {
+            slidesPerView: 3,
+          },
+        },
+      });
+
+      
+      $('.processbtn').click(function(){
+        var video_url=$('.pasteurl').val();
+        var divv=document.getElementsByClassName('video-buttons')[0];
+        divv.style.display="none";
+        if(!video_url.length == 0)
+        {
+          $('.show_loader').css("display", "block");
+          $('#show_process').text("Fetching Video Please Wait");
+          $.ajax(
+            {
+            type:"POST",
+            url: "/get_video",
+            data:{
+              csrfmiddlewaretoken: window.CSRF_TOKEN,
+                    url: video_url
+            },
+            success: function( data ) 
+            {
+              if(data=="error")
+              {
+                
+                $('.show_loader').css("display", "none");
+                alert("Url is invalid");
+              }
+              else if(data=="unable")
+              {
+                $('.show_loader').css("display", "none");
+                alert("Can't Find the Video Please Try Again!");
+              }
+              else{
+                var vid_source="{% static 'videos/' %}" +data + "";
+                $('#fetched_video').attr('src',vid_source);
+                var myVideo = $('#fetched_video')[0];
+
+               myVideo.onloadedmetadata = function() {
+                let vidDuration=0;
+               $(".spinners").css("display", "flex");
+               if(myVideo.duration<10){
+                  
+               vidDuration=parseFloat(parseInt((myVideo.duration)/60)+".0"+((myVideo.duration)%60));
+               }
+               else{
+                
+               vidDuration=parseFloat(parseInt((myVideo.duration)/60)+"."+((myVideo.duration)%60));
+               }
+              $('#end_spin').attr('max', vidDuration.toFixed(2));
+              $('#end_spin').attr('value', vidDuration.toFixed(2));
+
+
+              $('#start_spin').change(handleNumberInput);
+              $('#end_spin').change(handleNumberInput);
+
+                function handleNumberInput() {
+                
+                  const value1 = $('#start_spin').val();
+                  const value2 = $('#end_spin').val();
+                  console.log((value1%1).toFixed(2));
+                  if((value1%1).toFixed(2)>=0.60)
+                  {
+                    $('#start_spin').val(Math.floor(value1)+1);
+                  }
+                  if((value2%1).toFixed(2)>=0.60)
+                  {
+                    $('#end_spin').val(Math.floor(value2)+1);
+                  }
+                
+
+
+                }
+
+            };
+              $("#start_recognize").click(function(){
+                
+          $('.show_loader').css("display", "block");
+          
+        $('#show_process').text("Recognizing Actions Please Wait");
+                
+              startTime=convertToSeconds($('#start_spin').val());
+              endTime=convertToSeconds($('#end_spin').val());
+
+              let difference=endTime-startTime;
+              if(difference>30)
+              {
+                $(".video-buttons").css("bottom", "-250px");
+                do_for_longer_vid(data,startTime,startTime+8,myVideo.duration,0,"",endTime);
+              }
+              else{
+                recognize_action(data,$('#start_spin').val(),$('#end_spin').val(),(myVideo.duration/100).toFixed(2));
+              }
+                
+              })
+            
+              }
+              $('.show_loader').css("display", "none");
+              
+            }
+          })
+        }
+      });
+
+
+
+      function convertToSeconds(points) {
+      var minutes = Math.floor(points);
+      var seconds = Math.floor((points % 1) * 100);
+      var totalSeconds = (minutes * 60) + seconds;
+      return totalSeconds;
+    }
+
+      function do_for_longer_vid(videoName,startTime,endTime,vid_Duration,next,lastVid,video_end)
+      {
+       console.log("Longer: ",videoName,startTime,endTime,vid_Duration, lastVid,"End: "+video_end);
+        $.ajax(
+            {
+            type:"POST",
+            url: "/longer_recognize",
+            dataType: 'json',
+            data:{
+              csrfmiddlewaretoken: window.CSRF_TOKEN,
+                    video_name: videoName,
+                    start_time:startTime,
+                    end_time:endTime,
+                    video_length:vid_Duration,
+                    next_video:next,
+                    last_vid:lastVid,
+            },
+            success: function( data ) 
+            {
+              let previous=data['last_vid'];
+              var vid_source="{% static 'recognizedVideos/' %}" +data['file_name'] + "";
+               $('#fetched_video').attr('src',vid_source);
+              
+                var obj=data['all_actions'];
+                if(next>0)
+                {
+                 
+                  const keys = Object.keys(obj);
+                for (var i=0;i<keys.length;i++) {
+                 var lastKey=keys[i];
+                 var new_key=parseFloat(lastKey)+(8*next);
+                 obj[new_key.toFixed(2)]=obj[lastKey];
+                  delete obj[lastKey];
+                  
+                }
+                }
+                var divv=document.getElementsByClassName('video-buttons')[0];
+                divv.style.display="flex";
+                for (let prop in obj) {
+                var myButton = document.createElement('button');
+              myButton.textContent = prop + ": " + obj[prop];
+              myButton.onclick = function() {
+                jumpTo(prop);
+              };
+              divv.appendChild(myButton);
+                }
+                var probs=data['actions_prob'];
+                var prob_table=document.getElementById('prob_table');
+                var time=0;
+                if(next > 0)
+                {
+                  time+=(next*8);
+                }
+             for (let prop in probs) {
+              let arr=probs[prop].toString()
+              var myArray = arr.split(",");
+              let result=parseFloat(myArray[1]);
+              const row = document.createElement("tr");
+              var cell1 = document.createElement("td");
+              if(result<0.10){
+                cell1.textContent = myArray[0]+" (Declared as Unseen)";
+              }
+              else{
+                cell1.textContent = myArray[0];
+              }
+              var cell2 = document.createElement("td");
+              cell2.textContent = time.toFixed(2);
+              var cell3 = document.createElement("td");
+              let number = parseFloat(myArray[1]);
+              cell3.textContent = number.toFixed(2);
+              
+              var cell4 = document.createElement("td");
+              var button = document.createElement("button");
+              button.style.backgroundColor = "#F05121";
+              button.style.color = "white";
+              button.style.padding = "5px 5px";
+              button.style.border = "none";
+              button.style.borderRadius = "4px";
+              button.style.fontSize = "16px";
+              button.style.cursor = "pointer";
+              button.innerText = "Download!";
+              button.onclick=download_segment(time,data['file_name']);
+              cell4.appendChild(button);
+              time+=2.56
+              row.appendChild(cell1);
+              row.appendChild(cell2);
+              row.appendChild(cell3);
+              row.appendChild(cell4);
+              prob_table.appendChild(row);
+             }
+
+
+              if(endTime<video_end)
+              {
+                do_for_longer_vid(videoName,startTime+8,endTime+8,vid_Duration,next+1,previous,video_end)
+              }
+              else{
+                
+                $(".video-buttons").css("bottom", "0px");
+                $('.show_loader').css("display", "none");
+                alert("Done");
+              }
+            }
+          })
+
+      }
+      function recognize_action(videoName,startTime,endTime,vid_Duration)
+      {
+        console.log("Start: "+startTime);
+        console.log("endTime: "+endTime);
+        $('.show_loader').css("display", "block");
+        
+        $('#show_process').text("Recognizing Actions Please Wait");
+        var divv=document.getElementsByClassName('video-buttons')[0];
+        var prob_table=document.getElementById('prob_table');
+        var rowCount = prob_table.rows.length;
+        for (var i = rowCount - 1; i > 0; i--) {
+          prob_table.deleteRow(i);
+        }
+        $.ajax(
+            {
+            type:"POST",
+            url: "/recognize_i3d",
+            dataType: 'json',
+            data:{
+              csrfmiddlewaretoken: window.CSRF_TOKEN,
+                    video_name: videoName,
+                    start_time:startTime,
+                    end_time:endTime,
+                    video_length:vid_Duration
+            },
+            success: function( data ) 
+            {
+              add_btns_report(data,videoName);
+            }
+          })
+      }
+      var video = document.getElementById('fetched_video');
+  
+  function jumpTo(time) {
+    video.currentTime = time;
+  }
+
+  function add_btns_report(data,videoName)
+  {
+    var divv=document.getElementsByClassName('video-buttons')[0];
+        var prob_table=document.getElementById('prob_table');
+    divv.style.display="flex";
+              $('.show_loader').css("display", "none");
+               var vid_source="{% static 'recognizedVideos/' %}" +data['file_name'] + "";
+               $('#fetched_video').attr('src',vid_source);
+               var obj=data['all_actions'];
+               var probs=data['actions_prob'];
+               while (divv.firstChild) {
+                divv.removeChild(divv.firstChild);
+                    }
+               for (let prop in obj) {
+                var myButton = document.createElement('button');
+              myButton.textContent = prop + ": " + obj[prop];
+              myButton.onclick = function() {
+                jumpTo(prop);
+              };
+              divv.appendChild(myButton);
+                    }
+            var time=0.0;
+             for (let prop in probs) {
+              let arr=probs[prop].toString()
+              var myArray = arr.split(",");
+              let result=parseFloat(myArray[1]);
+              const row = document.createElement("tr");
+              var cell1 = document.createElement("td");
+              if(result<0.10){
+                cell1.textContent = myArray[0]+" (Declared as Unseen)";
+              }
+              else{
+                cell1.textContent = myArray[0];
+              }
+              var cell2 = document.createElement("td");
+              cell2.textContent = time.toFixed(2);
+              var cell3 = document.createElement("td");
+              let number = parseFloat(myArray[1]);
+              cell3.textContent = number.toFixed(2);
+              
+              var cell4 = document.createElement("td");
+              var button = document.createElement("button");
+              button.style.backgroundColor = "#F05121";
+              button.style.color = "white";
+              button.style.padding = "5px 5px";
+              button.style.border = "none";
+              button.style.borderRadius = "4px";
+              button.style.fontSize = "16px";
+              button.style.cursor = "pointer";
+              button.innerText = "Download!";
+              button.onclick=download_segment(time,videoName);
+              cell4.appendChild(button);
+              time+=2.56
+              row.appendChild(cell1);
+              row.appendChild(cell2);
+              row.appendChild(cell3);
+              row.appendChild(cell4);
+              prob_table.appendChild(row);
+             }
+  }
+  function download_segment(time,videoName)
+  {
+    return function()
+    {
+      console.log("The time is: "+time.toFixed(2));
+                $.ajax({
+                type: "POST",
+                url: "/download_segment",
+                dataType: 'json',
+                data:{
+                  csrfmiddlewaretoken: window.CSRF_TOKEN,
+                        video_name: videoName,
+                        start_time:  time.toFixed(2),
+                  end_time: parseFloat(time.toFixed(2))+(2.56)
+                },
+                success: function(response) {
+                  const link = document.createElement('a');
+                link.download = 'extracted_segment.mp4';  // set the filename for the download
+
+                // Set the href attribute of the anchor element to the URL of the video file
+                link.href = "{% static 'extracted_segments/' %}" +response['fileName'] + "";
+
+                // Append the anchor element to the body and click it to initiate the download
+                document.body.appendChild(link);
+                link.click();
+
+                // Remove the anchor element from the body
+                document.body.removeChild(link);
+                //   var videoUrl = response.url;
+                //   var a = document.createElement('a');
+                // a.href = videoUrl;
+                // a.download = 'video.mp4';
+                // document.body.appendChild(a);
+                // a.click();
+                // document.body.removeChild(a);
+                },
+                error: function(xhr, status, error) {
+                  console.error(error);
+                }
+              });
+    }
+   
+  }
+
+  
+
+
+    </script>
+    <!-- ========== javascript file link ends =============== -->
+  </body>
+</html>

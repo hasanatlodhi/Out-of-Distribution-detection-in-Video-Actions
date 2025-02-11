@@ -1,0 +1,567 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Action Recognition</title>
+
+    <!-- icons cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+    <!-- icon scout cdn  -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <!-- icon scout cdn ends here -->
+     
+    <!-- icons cdn links end here  -->
+
+    <!-- font syles links  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet"> 
+    <!-- font styles links end here  -->
+
+    <!-- swiper js css link  -->
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
+
+    <!-- swiper js css section ends  -->
+
+
+    <!-- css style sheet link  -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- style sheet link section ends here -->
+</head>
+<body id="index">
+
+    <!-- ========== nav section starts here =============== -->
+    <nav>
+        <div class="container nav_container">
+            <a href="/" class="logo"><i class="fa fa-thin fa-person-running  fa-2x"></i><span class="logotext">Actions.ai</span></a>
+            <ul class="nav_menu navbar">
+                <li><a data-active="index" href="/"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
+                <li><a data-active="ourteam" href="/ourteam"><i class="fa fa-universal-access" aria-hidden="true"></i> OurTeam</a></li>
+                <li><a data-active="blogs" href="/blogs"><i class="fa fa-pencil" aria-hidden="true"></i> Blogs</a></li>
+                <li><a data-active="contact" href="/contactus"><i class="fa fa-share" aria-hidden="true"></i> ContactUs</a></li>
+                  </ul>
+           
+            <button class="open_menu_btn"><i class="uil uil-bars"></i></button>
+            <button class="close_menu_btn"><i class="uil uil-multiply"></i></button>
+        </div>
+        <div class="scroll-indicator"></div>
+    </nav>
+   
+    <!-- ========== nav section ends here =============== -->
+
+    <!-- ========== header section starts here =============== -->
+    <header>
+        
+        <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+              <span class="close">&times;</span>
+              <div class="file-wrapper">
+                <h2>Upload Video</h2>
+                <form action="/upload_video" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                  <input class="file-input" type="file" name="video_file" accept="video/mp4,video/x-m4v,video/*" required>
+                  <i class="fas fa-cloud-upload-alt"></i>
+                  <p>Browse Video to Upload</p>
+                  <input style="padding: 5px; background-color: #ED8822; width: 10%;" type="submit" value="Process" onclick="show_loader()">
+                </form>
+                <h4 style="margin: 5px; display: none;" id="wait_text">Recognizing Action Please Wait.....</h4>
+            
+              </div>
+            </div>
+           
+          </div>
+         
+          <div id="fileModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+              <span class="close" id="close_file">&times;</span>
+              <div class="file-wrapper">
+               <h2>Upload File</h2>
+                <form action="/upload_file" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                  <input class="file-input" type="file" name="links_file" accept="text/plain">
+                  <i class="fas fa-cloud-upload-alt"></i>
+                  <p>Please Save links in a txt file in separate lines</p>
+                  <input style="padding: 5px; background-color: #ED8822; width: 10%;" type="submit" value="Process">
+                </form>
+                
+            
+              </div>
+            </div>
+          
+          </div>
+
+        <div class="container header_container">
+            <div class="header_left">
+                <div class="top">
+                    <h1>We recognize Actions in Your Videos</h1>
+                    <p>Recognize actions from your videos and generate report using powerful Deep Learning models.
+                    </p>
+                    <a title="Click the button Show more options" href="#" class="btn open_btn btn-primary">Get Started</a>
+                </div>
+                <div class="Mainbuttons">
+                    <button class="close_btn"><i class="uil uil-multiply" title="close"></i></button>
+
+                    <article class="youtubebtn">
+                        <a href="/fetch_video" title="Proceed with youtube video">
+                            <span class="btnicons"><i class="uil uil-youtube"></i></span>   
+                        <h5>Youtube video</h5>
+                        </a>
+                        
+                    </article>
+                    <article class="youtubebtn" title="Provide facebook video url">
+                        <a href="/fetch_video">
+                            <span class="btnicons"><i class="uil uil-facebook"></i></span>   
+                        <h5>facebook video</h5>
+                        </a>
+                        
+    
+                    </article>
+                    
+                    <article class="youtubebtn" title="Upload video">
+                        <a id="myBtn" style="cursor: pointer;">
+                            <span class="btnicons"><i class="uil uil-video"></i></span>   
+                        <h5>Upload Video</h5>
+                        </a>
+                    </article>
+                    
+                   
+
+                    <article class="youtubebtn" title="Upload File">
+                        <a id="btn_file">
+                            <span class="btnicons"><i class="uil uil-file-upload"></i></span>   
+                        <h5>Upload File</h5>
+                        </a>
+                    </article>
+
+                </div>
+            </div>
+            <div class="header_right">
+                <div class="header_right-video">
+                    <video src="{% static 'vids/video1.mp4' %}" autoplay loop  muted></video>
+                </div>
+            </div>
+        </div>
+
+        
+    </header>
+
+    <!-- ========== header section ends here =============== -->
+
+
+
+
+    <!-- ========== MoreInformation section starts here =============== -->
+    <section class="moreinfo">
+        <div class="container moreinfo_container">
+            <div class="moreinfo_left">
+                <h1>More information</h1>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos excepturi fugit beatae temporibus repudiandae dolorem nobis mollitia ab voluptates saepe neque, enim non nostrum doloremque?</p>
+                <a href="/blogs" class="btn">Learn More</a>
+            </div>
+            <div class="moreinfo_right">
+                <article class="info">
+                    <span class="info_icon"><i class="uil uil-youtube"></i></span>   
+                    <h5>Upload from Youtube</h5>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo, accusamus?</p>
+
+                </article>
+                <article class="info">
+                    <span class="info_icon"><i class="uil uil-facebook"></i></span>   
+                    <h5>Upload from facebook</h5>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo, accusamus?</p>
+
+                </article>
+
+                <article class="info">
+                    <span class="info_icon"><i class="uil uil-file-upload"></i></span>   
+                    <h5>Upload links File</h5>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo, accusamus?</p>
+
+                </article>
+
+                <article class="info">
+                    <span class="info_icon"><i class="uil uil-video"></i></span>   
+                    <h5>Upload video Directly</h5>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo, accusamus?</p>
+
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ========== MoreInformation section ends here =============== -->
+    
+    
+    
+    <!-- ========== youtube section starts here =============== -->
+    <section class="youtube">
+        <div class="container youtube_container">
+            <div class="youtube_left">
+                <h1>Youtube Videos Action recognition</h1>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sequi ex temporibus repellat est, voluptatum sed inventore necessitatibus id? Tenetur odit eligendi aliquam ab voluptatum, repellat itaque ad optio. Quaerat, quae.
+                </p>
+                <a href="/fetch_video" class="btn btn-primary btn-youtube">Upload video Link</a>
+            </div>
+            <div class="youtube_right">
+                <div class="youtube_right-video">
+                    <video src="{% static 'vids/video2.mp4' %}" autoplay loop  muted></video>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <!-- ========== youtube section ends here =============== -->
+
+
+<!-- ========== facebook section starts here =============== -->
+<section class="facebook">
+    <div class="container facebook_container">
+        <div class="facebook_left">
+            <div class="youtube_right-video">
+                <video src="{% static 'vids/video3.mp4' %}" autoplay loop  muted></video>
+            </div>
+        </div>
+        <div class="facebook_right">
+            <h1>facebook Videos Action recognition</h1>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sequi ex temporibus repellat est, voluptatum sed inventore necessitatibus id? Tenetur odit eligendi aliquam ab voluptatum, repellat itaque ad optio. Quaerat, quae.
+            </p>
+            <a href="/fetch_video" class="btn btn-primary btn-facebook">Upload video Link</a>
+           
+        </div>
+    </div>
+
+</section>
+<!-- ========== facebook section ends here =============== -->
+
+<!-- ========== file section starts here =============== -->
+<section class="youtube">
+    <div class="container youtube_container">
+        <div class="youtube_left">
+            <h1>Upload file having url's for videos</h1>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sequi ex temporibus repellat est, voluptatum sed inventore necessitatibus id? Tenetur odit eligendi aliquam ab voluptatum, repellat itaque ad optio. Quaerat, quae.
+            </p>
+            <a href="fileupload.html" class="btn btn-primary btn-file">Upload file</a>
+        </div>
+        <div class="youtube_right">
+            <div class="youtube_right-video">
+                <video src="{% static 'vids/video4.mp4' %}" autoplay loop  muted></video>
+            </div>
+        </div>
+    </div>
+
+</section>
+<!-- ========== file section ends here =============== -->
+
+
+<!-- ========== video section starts here =============== -->
+<section class="videoupload facebook ">
+    <div class="container  facebook_container">
+        <div class="facebook_left">
+            <div class="youtube_right-video">
+                <video src="{% static 'vids/video5.mp4' %}" autoplay loop  muted></video>
+            </div>
+        </div>
+        <div class="facebook_right">
+            <h1>Upload video directly from PC</h1>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sequi ex temporibus repellat est, voluptatum sed inventore necessitatibus id? Tenetur odit eligendi aliquam ab voluptatum, repellat itaque ad optio. Quaerat, quae.
+            </p>
+            <a href="fileupload.html" class="btn btn-primary btn-video">Upload video</a>
+           
+        </div>
+    </div>
+
+</section>
+<!-- ========== video section ends here =============== -->
+
+
+<!-- ========== frequently asked questions section starts here =============== -->
+<section class="faqs">
+    <h2>Frequently Asked Questions</h2>
+    <div class="container faqs_container">
+        <article class="faq">
+            <div class="faq_icon"><i class="uil uil-plus"></i></div>
+            <div class="question_answer">
+                <h4>Which Model has the More Accuracy?</h4>
+                <p>
+                    I3D Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, culpa?
+                </p>
+            </div>
+        </article>
+
+        <article class="faq">
+            <div class="faq_icon"><i class="uil uil-plus"></i></div>
+            <div class="question_answer">
+                <h4>How many models have been tested?</h4>
+                <p>
+                    2 Lorem ipsum dolor sit amet cofnsectetur adipisicing elit. Enim, culpa?
+                </p>
+            </div>
+        </article>
+
+
+        <article class="faq">
+            <div class="faq_icon"><i class="uil uil-plus"></i></div>
+            <div class="question_answer">
+                <h4>Which Model has the More Accuracy?</h4>
+                <p>
+                    I3D Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, culpa?
+                </p>
+            </div>
+        </article>
+
+
+        <article class="faq">
+            <div class="faq_icon"><i class="uil uil-plus"></i></div>
+            <div class="question_answer">
+                <h4>Which Model has the More Accuracy?</h4>
+                <p>
+                    I3D Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, culpa?
+                </p>
+            </div>
+        </article>
+
+        <article class="faq">
+
+            <div class="faq_icon"><i class="uil uil-plus"></i></div>
+            <div class="question_answer">
+                <h4>Which Model has the More Accuracy?</h4>
+                <p>
+                    I3D Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, culpa?
+                </p>
+            </div>
+        </article>
+
+        <article class="faq">
+
+            <div class="faq_icon"><i class="uil uil-plus"></i></div>
+            <div class="question_answer">
+                <h4>Which Model has the More Accuracy?</h4>
+                <p>
+                    I3D Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, culpa?
+                </p>
+            </div>
+        </article>
+
+        <article class="faq">
+
+            <div class="faq_icon"><i class="uil uil-plus"></i></div>
+            <div class="question_answer">
+                <h4>Which Model has the More Accuracy?</h4>
+                <p>
+                    I3D Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, culpa?
+                </p>
+            </div>
+        </article>
+
+        <article class="faq">
+
+            <div class="faq_icon"><i class="uil uil-plus"></i></div>
+            <div class="question_answer">
+                <h4>Which Model has the More Accuracy?</h4>
+                <p>
+                    I3D Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, culpa?
+                </p>
+            </div>
+        </article>
+
+
+    </div>
+</section>
+
+<!-- ========== frequently asked questions section ends here =============== -->
+
+
+
+
+<!-- ========== testimonial section starts here =============== -->
+<section class="container testimonials_container swiper mySwiper ">
+    <h2>Testimonials</h2>
+    <div class="swiper-wrapper" >
+        <article class="testimonial swiper-slide">
+            <div class="avatar">
+                <img src="{% static 'images/avatar1.jpg' %}" alt="avatar1">
+            </div>
+            <div class="testimonial_info">
+                <h5>Aria Stark</h5>
+                <small>Researcher</small>
+            </div>
+            <div class="testimonial_body">
+                <p>"Lorem, ipsum dolor sit amet consectetur adipisicing elit. Placeat ut dolore aspernatur eius ullam eveniet. "</p>
+            </div>
+        </article>
+
+
+        <article class="testimonial swiper-slide">
+            <div class="avatar">
+                <img src="{% static 'images/avatar2.jpg' %}" alt="avatar1">
+            </div>
+            <div class="testimonial_info">
+                <h5>AsiF Rehan</h5>
+                <small>Developer</small>
+            </div>
+            <div class="testimonial_body">
+                <p>"Lorem, ipsum dolor sit amet consectetur adipisicing elit. Placeat ut dolore aspernatur eius ullam eveniet. "</p>
+            </div>
+        </article>
+
+
+        <article class="testimonial swiper-slide">
+            <div class="avatar">
+                <img src="{% static 'images/avatar3.jpg' %}" alt="avatar1">
+            </div>
+            <div class="testimonial_info">
+                <h5>Hasanat Ahmad</h5>
+                <small>Data Scientist</small>
+            </div>
+            <div class="testimonial_body">
+                <p>"Lorem, ipsum dolor sit amet consectetur adipisicing elit. Placeat ut dolore aspernatur eius ullam eveniet. "</p>
+            </div>
+        </article>
+
+
+        <article class="testimonial swiper-slide">
+            <div class="avatar">
+                <img src="{% static 'images/avatar4.jpg' %}" alt="avatar1">
+            </div>
+            <div class="testimonial_info">
+                <h5>Aymen Tariq</h5>
+                <small>Researcher</small>
+            </div>
+            <div class="testimonial_body">
+                <p>"Lorem, ipsum dolor sit amet consectetur adipisicing elit. Placeat ut dolore aspernatur eius ullam eveniet. "</p>
+            </div>
+        </article>
+        
+    </div>
+    <div class="swiper-pagination"></div>
+</section>
+
+<!-- ========== testimonial section ends here =============== -->
+
+<!-- ========== footer section starts here =============== -->
+<footer>
+    <div class="container footer_container">
+        <div class="footer_1">
+            <a href="/" class="footer_logo"><i class="fa fa-thin fa-person-running  fa-2x"></i>Actions.ai</a>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, voluptate.</p>
+        </div>
+        <div class="footer_2">
+            <h4>Links</h4>
+            <ul class="permalinks">
+                <li><a href="/">Home</a></li>
+                <li><a href="/ourteam">OurTeam</a></li>
+                <li><a href="/blogs">Blogs</a></li>
+                <li><a href="/contactus">ContactUs</a></li>
+            </ul>
+        </div>
+        <div class="footer_3">
+            <h4>Contact Us</h4>
+            <ul class="permalinks">
+              <div>
+                <p>+923478318273</p>
+                <p>rehanasif3454@gmail.com</p>
+                <ul class="footer_socials">
+                    <a href="#" class="uil uil-facebook-f"></a>
+                   <a href="#" class="uil uil-instagram-alt"></a>
+                   <a href="#" class="uil uil-twitter"></a>
+                   <a href="#" class="uil uil-linkedin-alt"></a>
+                </ul>
+        
+              </div>
+            </ul>
+        </div>
+    </div>
+
+  
+    <div class="footer_copyright">
+        <small>Copyright &copy; Actions.ai by Asif Rehan</small>
+    </div>
+</footer>
+
+
+<!-- ========== footer section ends here =============== -->
+
+
+
+
+
+
+
+    <!-- ========== javascript file link =============== -->
+
+    <script src="{% static 'js/Main.js' %}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <!-- Initialize Swiper -->
+    <script>
+     var swiper = new Swiper(".mySwiper", {
+       slidesPerView: 1,
+       spaceBetween: 30,
+       pagination: {
+         el: ".swiper-pagination",
+         clickable: true,
+       },
+
+       //when windown width is >=600px
+       breakpoints:{
+        600:{
+            slidesPerView:2
+        }
+       }
+     });
+     var modal = document.getElementById("myModal");
+     var file_modal = document.getElementById("fileModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+var btn_file = document.getElementById("btn_file");
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+var close_file = document.getElementById("close_file");
+// When the user clicks the button, open the modal 
+
+btn_file.onclick = function() {
+    file_modal.style.display = "block";
+}
+
+
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+  
+}
+close_file.onclick = function() {
+    file_modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+function show_loader()
+{
+document.getElementById('wait_text').style.display="block";
+}
+   </script>
+    <!-- ========== javascript file link ends =============== -->
+
+
+</body>
+</html>

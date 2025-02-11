@@ -1,0 +1,272 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Blog</title>
+
+    <!-- icons cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+    <!-- icon scout cdn  -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <!-- icon scout cdn ends here -->
+     
+    <!-- icons cdn links end here  -->
+
+    <!-- font syles links  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet"> 
+    <!-- font styles links end here  -->
+
+
+
+
+    <!-- css style sheet link  -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/blogs.css' %}">
+
+    <!-- style sheet link section ends here -->
+</head>
+<body id="blogs">
+
+  <!-- ========== nav section starts here =============== -->
+  <nav>
+    <div class="container nav_container">
+      <a href="/" class="logo"><i class="fa fa-thin fa-person-running  fa-2x"></i><span class="logotext">Actions.ai</span></a>
+      <ul class="nav_menu navbar">
+          <li><a data-active="index" href="/"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
+          <li><a data-active="ourteam" href="/ourteam"><i class="fa fa-universal-access" aria-hidden="true"></i> OurTeam</a></li>
+          <li><a data-active="blogs" href="/blogs"><i class="fa fa-pencil" aria-hidden="true"></i> Blogs</a></li>
+          <li><a data-active="contact" href="/contactus"><i class="fa fa-share" aria-hidden="true"></i> ContactUs</a></li>
+            </ul>
+      
+      <button class="open_menu_btn"><i class="uil uil-bars"></i></button>
+      <button class="close_menu_btn"><i class="uil uil-multiply"></i></button>
+  </div>
+    <div class="scroll-indicator"></div>
+</nav>
+
+<!-- ========== nav section ends here =============== -->
+
+
+    
+    <!-- ========== ourteam section starts here =============== -->
+    <div class="wrapper">
+        <div class="content-wrapper">
+          <div class="content">
+            <div class="poster">
+              <!--Here we have added the image-->
+            </div>
+            
+            <div>
+              
+
+            </div>
+            <div class="words">
+              <div>
+                <h2>Introduction</h2>
+                <p>
+                  In recent years, action recognition in videos has gained significant attention due to its
+applications in various fields such as video surveillance, human-computer interaction, and
+sports analysis. However, a key challenge in action recognition is the ability to detect and
+classify actions that are unseen during training, known as out-of-distribution (OOD) actions.
+This blog explores our journey in developing "Actions.ai," a website that utilizes I3D models
+and novel loss functions to enhance action recognition and OOD detection capabilities.
+
+                </p>
+              </div>
+              <div>
+                <h2>Understanding the Problem:</h2>
+                <p>
+                  Action recognition involves identifying and classifying specific actions or activities within a
+                  video. Traditional approaches often rely on handcrafted features and shallow models, which
+                  may struggle to capture the rich temporal dynamics and spatial information present in videos.
+                  To overcome these limitations, we turned to deep learning techniques, particularly
+                  convolutional neural network (CNN) models.
+                </p>
+              </div>
+              <div>
+                <h2>Dataset Selection and Preprocessing:</h2>
+                <p>
+                  To train and evaluate our model, we employed the UCF101 dataset, which consists of 101
+action categories in a diverse range of videos. This dataset offered a suitable variety of actions
+to ensure comprehensive training and testing of our system. We performed necessary data
+preprocessing steps, including video resizing, frame extraction, and temporal sampling, to
+prepare the data for training.
+                </p>
+              </div>
+              <div><h2>Video Classification:</h2>
+              <p>
+                Video classification is a challenging task due to the temporal nature of video data. Traditional
+image classification techniques are insufficient for video classification since they overlook the
+temporal dependencies between frames. To overcome this limitation, researchers have
+developed various deep learning architectures that capture temporal information effectively.
+CNNs, popularly known for their success in image classification, have also been adapted for
+video classification by incorporating temporal modeling.
+
+              </p></div>
+
+              <div>
+                <h2>Out-of-Distribution (OOD) Detection:</h2>
+                <p>
+                  While accurate action recognition is essential, it is equally critical to detect actions that do not
+belong to the known set of classes. Out-of-distribution (OOD) detection plays a vital role in
+ensuring the reliability and safety of action recognition systems. OOD actions, also known as
+unseen actions, are actions that the model has not been trained on. Detecting and flagging these
+OOD actions helps prevent misclassifications or erroneous predictions.
+
+                </p>
+              </div>
+              <div>
+                <h2>Using CNN Models</h2>
+                <p>
+                  Convolutional Neural Networks (CNNs) have revolutionized the field of computer vision.
+They excel in capturing spatial features from images, making them a valuable asset for video
+classification. In the context of video processing, CNNs are extended to handle 3D data by
+considering both spatial and temporal dimensions. These 3D CNNs extract spatio-temporal
+features from video frames and learn hierarchical representations, enabling accurate action
+recognition.
+                </p>
+              </div>
+              <div>
+                <h2>Initial Challenges and the Shift to I3D Models:</h2>
+                <p>
+                  While CNN models showed promise, we encountered suboptimal results in action recognition
+and OOD detection. It became evident that the temporal aspect of actions was not being
+effectively captured. This led us to explore the Inflated 3D ConvNet (I3D), which extends
+CNNs to process 3D convolutional kernels and learn both spatial and temporal features
+simultaneously.
+                </p>
+              </div>
+              <div>
+                <h2>Utilizing I3D for Feature Extraction:</h2>
+                <p>
+                  To leverage the power of I3D, we incorporated it into our pipeline as a feature extractor. The
+I3D model is pretrained on large-scale video datasets (e.g., Kinetics) and can be fine-tuned on
+our specific action recognition task. By extracting features from video frames, we obtained a
+more robust representation that encapsulates both spatial and temporal characteristics of
+actions.
+                </p>
+              </div>
+              <div>
+                <h2>Loss Functions for Separating Seen and Unseen Actions:</h2>
+                <p>
+                  To tackle the challenge of OOD detection, we explored novel loss functions that encourage the
+model to distinguish between seen and unseen actions. One approach we adopted was the
+confidence-based loss function, which assigned higher confidence values to seen actions and
+lower confidence values to unseen actions. This helped create a clear separation between the
+two categories, enabling accurate identification and classification.
+
+                </p>
+              </div>
+              <div>
+                <h2>Results and Performance Evaluation:</h2>
+                <p>
+                  The integration of I3D models and novel loss functions yielded significant improvements in
+action recognition and OOD detection. Through rigorous experimentation and evaluation, we
+observed higher accuracy in identifying both seen and unseen actions. The use of I3D models
+allowed for more accurate temporal modeling, leading to improved recognition performance.
+The confidence-based loss function further enhanced the model's ability to differentiate
+between seen and unseen actions.
+<li>1. An example of an action from the UCF101 dataset correctly classified by Actions.ai.</li>
+<div><img src="" alt=""></div>
+<li>2. A screenshot demonstrating the confidence scores for seen and unseen actions obtained by
+  Actions.ai.
+</li>
+<div><img src="" alt=""></div>
+<li>
+  3. A visual representation of the confusion matrix showcasing the effectiveness of our system
+  in differentiating between seen and unseen actions.</li>
+  <div><img src="" alt=""></div>
+                </p>
+              </div>
+            </div>
+            <div class="quote">
+              <p> <font class="letter">“</font>
+                Little by Little we Grow up. Small efforts can bring a great change so never give up as "A small man can cast a very large shadow"
+                </p>
+              <p class="author">Asif Rehan</p>
+            </div>
+            <div class="words">
+              <h2>Conclusion:</h2>
+              In this blog, we explored our journey in developing "Actions.ai," a website dedicated to action
+              recognition and OOD detection. By leveraging the power of I3D models and employing novel
+              loss functions, we were able to achieve notable advancements in performance. Our approach
+              allowed for more accurate action recognition and effective separation of seen and unseen
+              actions. We believe that such advancements hold great potential for applications in video
+              analysis, surveillance, and various human-computer interaction domains.
+              
+            </div>
+            <div class="author">
+              <div class="image">
+                <img src="" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        
+    <!-- ========== ourteam section ends here =============== -->
+
+<!-- ========== footer section starts here =============== -->
+<footer>
+    <div class="container footer_container">
+        <div class="footer_1">
+            <a href="/" class="footer_logo"><i class="fa fa-thin fa-person-running  fa-2x"></i>Actions.ai</a>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, voluptate.</p>
+        </div>
+        <div class="footer_2">
+            <h4>Links</h4>
+            <ul class="permalinks">
+              <li><a href="/">Home</a></li>
+              <li><a href="/ourteam">OurTeam</a></li>
+              <li><a href="/blogs">Blogs</a></li>
+              <li><a href="/contactus">ContactUs</a></li>
+          </ul>
+        </div>
+        <div class="footer_3">
+            <h4>Contact Us</h4>
+            <ul class="permalinks">
+              <div>
+                <p>+923478318273</p>
+                <p>rehanasif3454@gmail.com</p>
+                <ul class="footer_socials">
+                 <a href="#" class="uil uil-facebook-f"></a>
+                <a href="#" class="uil uil-instagram-alt"></a>
+                <a href="#" class="uil uil-twitter"></a>
+                <a href="#" class="uil uil-linkedin-alt"></a>
+                </ul>
+        
+              </div>
+            </ul>
+        </div>
+    </div>
+
+  
+    <div class="footer_copyright">
+        <small>Copyright &copy; Actions.ai by Asif Rehan</small>
+    </div>
+</footer>
+
+
+<!-- ========== footer section ends here =============== -->
+
+
+
+
+
+
+
+    <!-- ========== javascript file link =============== -->
+
+    <script src="{% static 'js/Main.js' %}"></script>
+
+    <!-- ========== javascript file link ends =============== -->
+
+
+</body>
+</html>

@@ -1,0 +1,5 @@
+cupy
+scipy
+numpy==1.24.6
+sudo apt update
+sudo apt install ffmpeg libavcodec-extra

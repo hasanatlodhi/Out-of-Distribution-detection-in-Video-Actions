@@ -1,0 +1,193 @@
+
+:root{
+    --color-primary:#FEFBF7;
+    --color-text:#474748;
+    --color-bg:linear-gradient(to bottom, #FDF5E9 0%, #FEFBF7 100%);
+    --color-bg1:#FDF5E9;
+    --color-bg2:#FEFAF6;
+    --color-bg3:#FEFBF7;
+    --color-testimonial-section:#f5d6ad;
+    --color-button:#ED8822;
+    --color-button-hover:#f05121;
+    --color-hower:#ED8822;
+    --color-sections:#F4F3F3;
+    --color-footer-border:#928d8d;
+    --color-heading-text:#333333;
+    --color-footer:#424242;
+    --color-file:#f1c13b;
+    --color-file-hover:#e7ac08;
+    --color-video:linear-gradient(to right, #c21500 0%, #ffc500 100%);
+    --color-success:#00bf8e;
+    --color-socials:#1fe9b6;
+    --color-success-hover:#0a8a6a;
+    --color-danger:#f75842;
+    --color-youtube:#d42620;
+    --color-youtube-hover:#ac1510;
+    --color-facebook: #1970f1;
+    --color-instagram:#d41444 ;
+    --color-facebook-hover: #0447ac;
+    --card-hover:rgba(95, 93, 93, 0.3);
+    --color-danger-varient:rgba(143, 26, 11, 0.7);
+
+    /* lengths  */
+    --container-widths-large:76%;
+    --container-widths-medium:90%;
+    --container-widths-small:94%;
+
+    --transition:all 400ms ease;
+}
+
+/* <!-- ========== contact section starts here =============== --> */
+
+.contact_container{
+    background: var(--color-sections);
+    padding: 4rem;
+    display: grid;
+    grid-template-columns: 40% 60%;
+    gap: 4rem;
+    height: 30rem;
+    margin: 7rem auto;
+    border-radius: 1rem;
+}
+
+/* aside section starts  */
+.contact_aside{
+    background: var(--color-primary);
+    padding: 3rem;
+    border-radius: 1rem;
+    position: relative;
+    bottom: 10rem;
+    box-shadow: 0 3rem 2rem var(--card-hover)
+
+}
+.aside_image{
+    width: 12rem;
+    margin-bottom: 2rem;
+}
+.contact_aside h2{
+    text-align: left;
+    margin-bottom: 1rem;
+}
+.contact_aside p{
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+}
+.contact_details li
+{
+display: flex;
+gap: 1rem;
+align-items: center;
+margin-bottom: 1rem;
+}
+.contact_socials
+{
+display: flex;
+gap: 0.8rem;
+margin-top: 3rem;
+}
+.contact_socials a{
+    background: var(--color-sections);
+    padding: 0.5rem;
+    border-radius: 50%;
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+.contact_socials a:hover{
+    background:var(--color-primary);
+}
+
+.contact_socials a:nth-child(1)
+{
+    color: var(--color-facebook);
+}
+.contact_socials a:nth-child(2)
+{
+    color: var(--color-instagram);
+}
+.contact_socials a:nth-child(3)
+{
+    color: #29abf1;
+}
+.contact_socials a:nth-child(4)
+{
+    color: #0072b1;
+}
+
+/* <!-- ========== contact form starts here =============== --> */
+.contact_form
+{
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    margin-right: 4rem;
+}
+.form_name{
+    display: flex;
+    gap: 1.2rem;
+}
+.contact_form input[type="text"]
+{
+    width: 50%;
+}
+input,textarea
+{
+    width: 100%;
+    padding: 1rem;
+    background: var(--color-bg);
+    color: var(--color-text);
+    box-shadow: 0 3rem 2rem var(--card-hover)
+}
+.contact_form .btn
+{
+    width: max-content;
+    margin-top: 1rem;
+    cursor: pointer;
+}
+/* <!-- ========== contact form ends here =============== --> */
+
+/* <!-- ===== media queries========= --> */
+
+/* tabblet media queries  */
+
+@media screen and (max-width:1024px) {
+    .contact_container{
+        gap: 1.5rem;
+        margin-top: 3rem;
+        height: auto;
+        padding: 1.5rem;
+    }
+    .contact_aside{
+        width: auto;
+        padding: 1.5rem;
+        bottom: 0;
+    }
+    .contact_form
+    {
+        align-self: center;
+        margin-right: 1.5rem;
+    }
+    
+}
+
+/* mobile media queries  */
+
+@media screen and (max-width:600px){
+.contact_container{
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    margin-top: 0;
+    padding: 0;
+}
+.contact_form{
+    margin: 0 1.5rem 3rem;
+}
+.form_name
+{
+    flex-direction: column;
+}
+.contact_form input[type="text"]
+{
+    width: 1000%;
+}
+}
+

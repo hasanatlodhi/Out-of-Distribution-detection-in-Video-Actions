@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<!-- Coding By CodingNepal - youtube.com/codingnepal -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File Upload JavaScript with Progress Ba | CodingNepal</title>
+    
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/fileupload.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+</head>
+<body>
+  <div class="file-wrapper">
+    <h2>Upload File</h2>
+    <form action="#">
+    
+
+      <input class="file-input" type="file" name="file" hidden>
+      <i class="fas fa-cloud-upload-alt"></i>
+      <p>Browse File to Upload</p>
+    </form>
+    <div class="filebuttons">
+    <a href="index.html" class="file-processbtn ">Back</a>
+    <a href="report.html" class="file-processbtn ">Process</a>
+
+
+    </div>
+
+    <section class="progress-area"></section>
+    <section class="uploaded-area"></section>
+  </div>
+
+  <script src="{% static 'js/fileupload.js' %}"></script>
+
+</body>
+</html>

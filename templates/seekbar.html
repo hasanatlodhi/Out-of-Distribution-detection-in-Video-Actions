@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seekbar</title>
+</head>
+<body>
+    <div class="video-trim-container">
+        <video id="video" controls>
+          <source id="myvid" src="../static/videos/014fa811.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div class="seek-bar">
+          <input type="range" id="range-input" min="0" max="100" step="0.1" value="0">
+          <input type="range" id="range-input2" min="0" max="100" step="0.1" value="100">
+        </div>
+      </div>
+</body>
+<style>
+    .video-trim-container {
+  position: relative;
+}
+
+.seek-bar {
+  position: relative;
+  width: 23%;
+  height: 2px;
+  background-color: #000;
+  margin-top: 10px;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: -5px;
+  left: 0;
+  z-index: 1;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 2px;
+  background-color: #000;
+  border: none;
+}
+
+input[type="range"]::-webkit-slider-thumb  {
+  -webkit-appearance: none;
+  height: 50px;
+  width: 10px;
+    background-color: #ED8822;
+  border: 1px solid #000;
+  border-radius: 10%;
+  margin-top: -5px;
+  z-index: 2;
+}
+
+input[type="range"]::-moz-range-thumb {
+  height: 12px;
+  width: 12px;
+  background-color: #fff;
+  border: 1px solid #000;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+input[type="range"]::-ms-thumb {
+  height: 12px;
+  width: 12px;
+  background-color: #fff;
+  border: 1px solid #000;
+  border-radius: 50%;
+  margin-top: 0;
+  z-index: 2;
+}
+
+</style>
+
+</html>
+
+<script>
+    
+    const video = document.getElementById('video');
+const rangeInput = document.getElementById('range-input');
+const rangeInput2 = document.getElementById('range-input2');
+
+rangeInput.addEventListener('input', function() {
+  rangeInput.value = Math.min(rangeInput.value, rangeInput2.value);
+  console.log("1 "+rangeInput.value);
+});
+
+rangeInput2.addEventListener('input', function() {
+  rangeInput2.value = Math.max(rangeInput.value, rangeInput2.value);
+  console.log("2 "+rangeInput2.value);
+});
+
+video.addEventListener('timeupdate', function() {
+  const duration = video.duration;
+  const startSeconds = (parseFloat(rangeInput.value) / 100) * duration;
+  const endSeconds = (parseFloat(rangeInput2.value) / 100) * duration;
+  console.log('Start Time:', startSeconds);
+  console.log('End Time:', endSeconds);
+});
+video.addEventListener('loadedmetadata', function() {
+    rangeInput.max=video.duration;
+    rangeInput2.max=video.duration;
+} );
+</script>
