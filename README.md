@@ -9,7 +9,7 @@ Our model is trained on the **UCF101 dataset**, achieving:
 The model utilizes **I3D (Inflated 3D Convolutional Network) feature extraction** from videos, incorporating both **RGB and optical flow** inputs.
 
 For a detailed explanation of the methodology, training process, and results, refer to our research paper:  
-[Read the Research Paper]([https://d197for5662m48.cloudfront.net/documents/publicationstatus/174932/preprint_pdf/b99f44959e71e8336d6252c68b80df16.pdf](https://www.springerprofessional.de/en/selecting-loss-function-for-unseen-out-of-distribution-action-re/51282958))
+[Read the Research Paper]([https://d197for5662m48.cloudfront.net/...pdf](https://www.springerprofessional.de/en/...))
 
 ---
 
